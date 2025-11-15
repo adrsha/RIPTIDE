@@ -1,0 +1,22 @@
+/app/target/
+/lib/target/
+
+# Remove Cargo.lock from gitignore if you're building a binary application
+# and want reproducible builds
+/app/Cargo.lock
+/lib/Cargo.lock
+
+# VSCode settings
+.vscode/
+
+# Logs
+*.log
+
+# Nix related (if you're using Nix)
+result/
+*.drv
+*.old
+
+# If you use ctags
+tags
+
