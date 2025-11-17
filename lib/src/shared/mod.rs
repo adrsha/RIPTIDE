@@ -4,8 +4,8 @@ pub mod buffers;
 use std::sync::{ LazyLock, RwLock };
 
 pub struct Shared {
-    frames : frames::FrameStorage,
-    buffers : buffers::BufferStorage
+    pub frames : frames::FrameStorage,
+    pub buffers : buffers::BufferStorage
 }
 impl Default for Shared{
     fn default() -> Self {

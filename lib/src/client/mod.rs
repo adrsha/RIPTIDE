@@ -7,7 +7,7 @@ pub mod def_fns{
 }
 
 #[derive(Debug)]
-pub enum GUIEvents {
+pub enum ClientEvents {
     KeyDown,
     LeftMouseBtnDown,
     RightMouseBtnDown,
@@ -15,23 +15,21 @@ pub enum GUIEvents {
 }
 
 fn init (
-    update:    fn(&mut GUI, GUIEvents),
-    view:      fn(&GUI) -> Element<GUIEvents>,
-    subscribe: fn(&GUI) -> Subscription<GUIEvents>
+    client: &Client,
 ) -> iced::Result {
     let application
-        = application("RIPTIDE", update, view);
-    application.subscription(subscribe).run()
+        = application("RIPTIDE", client.update, client.view);
+    application.subscription(client.subscribe).run()
 }
 
-pub struct GUI {
-    pub update:       fn(&mut GUI, GUIEvents),
-    pub view:         fn(&GUI) -> Element<GUIEvents>,
-    pub subscribe:    fn(&GUI) -> Subscription<GUIEvents>,
-    pub init:         fn(fn(&mut GUI, GUIEvents), fn(&GUI) -> Element<GUIEvents>, fn(&GUI) -> Subscription<GUIEvents>) -> iced::Result,
+pub struct Client {
+    pub update:       fn(&mut Client, ClientEvents),
+    pub view:         fn(&Client) -> Element<ClientEvents>,
+    pub subscribe:    fn(&Client) -> Subscription<ClientEvents>,
+    pub init:         fn(&Client) -> iced::Result,
 }
 
-impl Default for GUI{
+impl Default for Client{
     fn default() -> Self {
         Self {
             update:       def_fns::update::default,

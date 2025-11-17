@@ -11,6 +11,7 @@ pub struct Coordinates {
 pub struct Frame {
     pub position_type: FramePositionType,
     pub position: Coordinates,
+    pub buffer_index: usize
 }
 
 impl Frame {
@@ -18,18 +19,21 @@ impl Frame {
         Self {
             position_type : FramePositionType::Fixed,
             position: Coordinates { x : 0, y : 0 },
+            buffer_index: 0,
         }
     }
 }
 
 
 pub struct FrameCluster {
+    pub is_visible: bool,
     pub frames : Vec<Frame>
 }
 
 impl FrameCluster {
     pub fn default() -> Self {
-        Self { 
+        Self {
+            is_visible: false,
             frames : vec![Frame::default()]
         }
     }
@@ -42,7 +46,7 @@ pub struct FrameStorage {
 
 impl FrameStorage {
     pub fn default() -> Self {
-        Self { 
+        Self {
             frame_clusters: vec![ FrameCluster::default() ]
         }
     }

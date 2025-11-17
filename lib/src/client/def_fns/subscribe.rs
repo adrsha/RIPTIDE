@@ -1,7 +1,7 @@
-use crate::{client::{ GUIEvents, GUI }, shared::SHARED};
+use crate::{client::{ ClientEvents, Client }, shared::SHARED};
 use iced::Subscription;
 
-pub fn subscription_fn (gui : &GUI) -> Subscription<GUIEvents> {
+pub fn subscription_fn (gui : &Client) -> Subscription<ClientEvents> {
     Subscription::none()
 }
 

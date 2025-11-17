@@ -1,9 +1,9 @@
 pub struct Buffer {
-    content : String,
+    pub content : String,
 }
 impl Buffer{
     pub fn default() -> Self {
-        Self { 
+        Self {
             content: String::from("")
         }
     }
@@ -11,12 +11,12 @@ impl Buffer{
 
 
 pub struct BufferStorage {
-    buffers : Vec<Buffer>,
+    pub buffers : Vec<Buffer>,
 }
 
 impl BufferStorage {
     pub fn default() -> Self {
-        Self { 
+        Self {
             buffers: vec![Buffer::default()]
         }
     }
