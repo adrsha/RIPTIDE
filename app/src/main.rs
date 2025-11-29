@@ -1,4 +1,4 @@
-use riptide_lib::{Libs, run_riptide, shared};
+use riptide_lib::{Libs, run_riptide };
 // use crate::shared::frames::FrameStorage;
 // use crate::shared::buffers::BufferStorage;
 

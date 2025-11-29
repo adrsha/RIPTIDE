@@ -1,8 +1,8 @@
-use crate::{client::{ ClientEvents, Client }, shared::SHARED};
+use crate::interfaces::enums::ClientEvents;
+use crate::client::Client;
 use iced::Subscription;
 
-pub fn subscription_fn (gui : &Client) -> Subscription<ClientEvents> {
+pub fn default (client : &Client) -> Subscription<ClientEvents> {
     Subscription::none()
 }
 
-pub use subscription_fn as default;

@@ -1,27 +1,37 @@
+use crate::interfaces::enums::ClientEvents;
 use crate::shared::frames::FrameCluster;
-use crate::shared::Shared;
-use crate::{client::{ ClientEvents, Client }, shared};
-use iced::widget::{row, text };
+use crate::{client::Client};
+use iced::widget::{row, text};
 use iced::{Element};
 
-pub fn view_fn(client : &Client ) -> Element<ClientEvents> {
-    let mut shared = shared::SHARED.write().unwrap();
+fn check_new_frame_cluster(frame_clusters: &Vec<FrameCluster>) -> Option<&FrameCluster> {
+    let mut new_frame_cluster = None;
+    for frame_cluster in frame_clusters {
+        if !frame_cluster.is_visible {
+            new_frame_cluster = Some(frame_cluster);
+            break;
+        }
+    }
+    new_frame_cluster
+}
+
+pub fn default(client : &Client) -> Element<ClientEvents> {
     let mut container = row![];
 
-    let frame_clusters = &mut shared.frames.frame_clusters;
-    let main_frame_cluster;
-    if let Some(frame_cluster) = frame_clusters.iter_mut().find(|fc| fc.is_visible) {
-        main_frame_cluster = frame_cluster;
-    } else {
-        main_frame_cluster = frame_clusters.iter_mut().next().unwrap();
-        main_frame_cluster.is_visible = true;
-    }
+    let frame_clusters = &client.shared.frames.frame_clusters;
+    // TODO: check if current window has a pointed frame_cluster
 
-    let current_frames = &main_frame_cluster.frames;
-    for frame in current_frames {
-        container = container.push(text(format!("Frame {}", frame.buffer_index)));
+    let new_frame_cluster = check_new_frame_cluster(&frame_clusters);
+
+    match new_frame_cluster {
+        Some(frame_cluster) => {
+            for frame in frame_cluster.frames.iter() {
+                container = container.push(text(format!("Frame {}", frame.buffer_index)));
+            }
+        },
+        None => {
+            container = container.push(text("No framesclusters found"));
+        }
     }
     container.into()
 }
-
-pub use view_fn as default;

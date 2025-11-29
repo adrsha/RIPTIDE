@@ -1,6 +1,7 @@
 pub struct Buffer {
     pub content : String,
 }
+
 impl Buffer{
     pub fn default() -> Self {
         Self {
@@ -8,7 +9,6 @@ impl Buffer{
         }
     }
 }
-
 
 pub struct BufferStorage {
     pub buffers : Vec<Buffer>,

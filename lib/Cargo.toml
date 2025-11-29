@@ -4,5 +4,5 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-iced = "0.13.1"
+eframe = "0.33.2"
 memmap2 = "0.9.7"

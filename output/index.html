@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rust Code Hierarchy</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/treant-js/1.0/Treant.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/treant-js/1.0/Treant.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Rust Code Hierarchy Visualization</h1>
+        <div id="tree-container"></div>
+    </div>
+    
+    <script>
+        const tree_data = {
+  "chart": {
+    "container": "#tree-container",
+    "levelSeparation": 40,
+    "siblingSeparation": 20,
+    "subTeeSeparation": 40,
+    "rootOrientation": "NORTH",
+    "nodeAlign": "CENTER",
+    "connectors": {
+      "type": "step"
+    },
+    "node": {
+      "collapsable": true
+    }
+  },
+  "nodeStructure": [
+    {
+      "text": {
+        "name": "run_riptide"
+      },
+      "HTMLclass": "function unused",
+      "innerHTML": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">function</div><div class=\"node-title\">run_riptide</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Parameters</div><div class=\"params-list\"><div class=\"param-item\"><span class=\"param-name\">libs</span><span class=\"param-sep\">:</span><span class=\"param-type\">Libs</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/lib.rs</div></div>",
+      "children": [
+        {
+          "text": {
+            "name": "Libs"
+          },
+          "HTMLclass": "struct ",
+          "innerHTML": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">struct</div><div class=\"node-title\">Libs</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Fields</div><div class=\"fields-preview\"><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">client</span><span class=\"field-sep\">:</span><span class=\"field-type\">client::Client</span></div></div></div><div class=\"section-wrapper\"><div class=\"section-header\">Methods</div><div class=\"methods-preview\"><div class=\"methods-full\" style=\"display:none;\"><div class=\"method-item\"><span class=\"visibility private\">priv</span> <span class=\"method-name\">fn default</span><span class=\"method-params\">()</span><span class=\"method-return\"> \u2192 Self</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/lib.rs</div></div>",
+          "children": [
+            {
+              "text": {
+                "name": "default"
+              },
+              "HTMLclass": "function ",
+              "innerHTML": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">function</div><div class=\"node-title\">default</div></div><div class=\"return-type-badge\"><span class=\"label\">returns</span> Self</div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/lib.rs</div></div>"
+            },
+            {
+              "text": {
+                "name": "Client"
+              },
+              "HTMLclass": "struct ",
+              "innerHTML": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">struct</div><div class=\"node-title\">Client</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Fields</div><div class=\"fields-preview\"><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">windows</span><span class=\"field-sep\">:</span><span class=\"field-type\">Vec<Window></span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">shared</span><span class=\"field-sep\">:</span><span class=\"field-type\">Shared</span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"fn-pointer-badge\">fn ptr</span> <span class=\"field-name\">update</span><span class=\"field-sep\">:</span><span class=\"field-type\">fn(&mut Self</span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"fn-pointer-badge\">fn ptr</span> <span class=\"field-name\">view</span><span class=\"field-sep\">:</span><span class=\"field-type\">fn(&Self) -> Element<ClientEvents></span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"fn-pointer-badge\">fn ptr</span> <span class=\"field-name\">subscribe</span><span class=\"field-sep\">:</span><span class=\"field-type\">fn(&Self) -> Subscription<ClientEvents></span></div></div></div><div class=\"section-wrapper\"><div class=\"section-header\">Methods</div><div class=\"methods-preview\"><div class=\"methods-full\" style=\"display:none;\"><div class=\"method-item\"><span class=\"visibility private\">priv</span> <span class=\"method-name\">fn default</span><span class=\"method-params\">()</span><span class=\"method-return\"> \u2192 Self</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/client/mod.rs</div></div>",
+              "children": [
+                {
+                  "text": {
+                    "name": "default"
+                  },
+                  "HTMLclass": "function ",
+                  "innerHTML": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">function</div><div class=\"node-title\">default</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Parameters</div><div class=\"params-list\"><div class=\"param-item\"><span class=\"param-name\">client</span><span class=\"param-sep\">:</span><span class=\"param-type\">&mut Client</span></div><div class=\"param-item\"><span class=\"param-name\">events</span><span class=\"param-sep\">:</span><span class=\"param-type\">ClientEvents</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/client/def_fns/update.rs</div></div>",
+                  "children": [
+                    {
+                      "text": {
+                        "name": "ClientEvents"
+                      },
+                      "HTMLclass": "enum ",
+                      "innerHTML": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">enum</div><div class=\"node-title\">ClientEvents</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Variants</div><div class=\"variants-list\"><div class=\"variant-item\"><span class=\"variant-name\">KeyDown</span></div><div class=\"variant-item\"><span class=\"variant-name\">LeftMouseBtnDown</span></div><div class=\"variant-item\"><span class=\"variant-name\">RightMouseBtnDown</span></div><div class=\"variant-item\"><span class=\"variant-name\">Ignored</span></div><div class=\"variant-item\"><span class=\"variant-name\">WindowCloseEvent</span><span class=\"variant-fields\">(window::Id)</span></div><div class=\"variant-item\"><span class=\"variant-name\">WindowOpenEvent</span><span class=\"variant-fields\">(window::Id)</span></div><div class=\"variant-item\"><span class=\"variant-name\">FrameCloseEvent</span><span class=\"variant-fields\">(usize, usize)</span></div><div class=\"variant-item\"><span class=\"variant-name\">FrameOpenEvent</span><span class=\"variant-fields\">(Frame, usize)</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/interfaces/enums.rs</div></div>",
+                      "children": [
+                        {
+                          "text": {
+                            "name": "Frame"
+                          },
+                          "HTMLclass": "struct ",
+                          "innerHTML": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">struct</div><div class=\"node-title\">Frame</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Fields</div><div class=\"fields-preview\"><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">position_type</span><span class=\"field-sep\">:</span><span class=\"field-type\">FramePositionType</span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">position</span><span class=\"field-sep\">:</span><span class=\"field-type\">Coordinates</span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">buffer_index</span><span class=\"field-sep\">:</span><span class=\"field-type\">usize</span></div></div></div><div class=\"section-wrapper\"><div class=\"section-header\">Methods</div><div class=\"methods-preview\"><div class=\"methods-full\" style=\"display:none;\"><div class=\"method-item\"><span class=\"visibility private\">priv</span> <span class=\"method-name\">fn default</span><span class=\"method-params\">()</span><span class=\"method-return\"> \u2192 Self</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/shared/frames/mod.rs</div></div>"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "text": {
+                    "name": "Shared"
+                  },
+                  "HTMLclass": "struct ",
+                  "innerHTML": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">struct</div><div class=\"node-title\">Shared</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Fields</div><div class=\"fields-preview\"><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">frames</span><span class=\"field-sep\">:</span><span class=\"field-type\">frames::FrameStorage</span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">buffers</span><span class=\"field-sep\">:</span><span class=\"field-type\">buffers::BufferStorage</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/shared/mod.rs</div></div>",
+                  "children": [
+                    {
+                      "text": {
+                        "name": "FrameStorage"
+                      },
+                      "HTMLclass": "struct ",
+                      "innerHTML": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">struct</div><div class=\"node-title\">FrameStorage</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Fields</div><div class=\"fields-preview\"><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">frame_clusters</span><span class=\"field-sep\">:</span><span class=\"field-type\">Vec<FrameCluster></span></div></div></div><div class=\"section-wrapper\"><div class=\"section-header\">Methods</div><div class=\"methods-preview\"><div class=\"methods-full\" style=\"display:none;\"><div class=\"method-item\"><span class=\"visibility private\">priv</span> <span class=\"method-name\">fn default</span><span class=\"method-params\">()</span><span class=\"method-return\"> \u2192 Self</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/shared/frames/mod.rs</div></div>"
+                    },
+                    {
+                      "text": {
+                        "name": "BufferStorage"
+                      },
+                      "HTMLclass": "struct ",
+                      "innerHTML": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">struct</div><div class=\"node-title\">BufferStorage</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Fields</div><div class=\"fields-preview\"><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">buffers</span><span class=\"field-sep\">:</span><span class=\"field-type\">Vec<Buffer></span></div></div></div><div class=\"section-wrapper\"><div class=\"section-header\">Methods</div><div class=\"methods-preview\"><div class=\"methods-full\" style=\"display:none;\"><div class=\"method-item\"><span class=\"visibility private\">priv</span> <span class=\"method-name\">fn default</span><span class=\"method-params\">()</span><span class=\"method-return\"> \u2192 Self</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/shared/buffers/mod.rs</div></div>"
+                    }
+                  ]
+                },
+                {
+                  "text": {
+                    "name": "default"
+                  },
+                  "HTMLclass": "function ",
+                  "innerHTML": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">function</div><div class=\"node-title\">default</div></div><div class=\"return-type-badge\"><span class=\"label\">returns</span> Element<ClientEvents></div><div class=\"section-wrapper\"><div class=\"section-header\">Parameters</div><div class=\"params-list\"><div class=\"param-item\"><span class=\"param-name\">client</span><span class=\"param-sep\">:</span><span class=\"param-type\">&Client</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/client/def_fns/view.rs</div></div>"
+                },
+                {
+                  "text": {
+                    "name": "default"
+                  },
+                  "HTMLclass": "function ",
+                  "innerHTML": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">function</div><div class=\"node-title\">default</div></div><div class=\"return-type-badge\"><span class=\"label\">returns</span> Subscription<ClientEvents></div><div class=\"section-wrapper\"><div class=\"section-header\">Parameters</div><div class=\"params-list\"><div class=\"param-item\"><span class=\"param-name\">client</span><span class=\"param-sep\">:</span><span class=\"param-type\">&Client</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/client/def_fns/subscribe.rs</div></div>"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "text": {
+        "name": "default"
+      },
+      "HTMLclass": "function unused",
+      "innerHTML": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">function</div><div class=\"node-title\">default</div></div><div class=\"return-type-badge\"><span class=\"label\">returns</span> Self</div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/shared/mod.rs</div></div>"
+    },
+    {
+      "text": {
+        "name": "RiptideEvents"
+      },
+      "HTMLclass": "enum unused",
+      "innerHTML": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">enum</div><div class=\"node-title\">RiptideEvents</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Variants</div><div class=\"variants-list\"><div class=\"variant-item\"><span class=\"variant-name\">OpenWindow</span></div><div class=\"variant-item\"><span class=\"variant-name\">CloseWindow</span></div><div class=\"variant-item\"><span class=\"variant-name\">CloseFrame</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/interfaces/enums.rs</div></div>"
+    },
+    {
+      "text": {
+        "name": "spawn_window"
+      },
+      "HTMLclass": "function unused",
+      "innerHTML": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">function</div><div class=\"node-title\">spawn_window</div></div><div class=\"return-type-badge\"><span class=\"label\">returns</span> Task<ClientEvents></div><div class=\"section-wrapper\"><div class=\"section-header\">Parameters</div><div class=\"params-list\"><div class=\"param-item\"><span class=\"param-name\">current_window</span><span class=\"param-sep\">:</span><span class=\"param-type\">&mut Window</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/client/mod.rs</div></div>",
+      "children": [
+        {
+          "text": {
+            "name": "Window"
+          },
+          "HTMLclass": "struct ",
+          "innerHTML": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">struct</div><div class=\"node-title\">Window</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Fields</div><div class=\"fields-preview\"><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">id</span><span class=\"field-sep\">:</span><span class=\"field-type\">Option<Id></span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">title</span><span class=\"field-sep\">:</span><span class=\"field-type\">&'static str</span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">frame_cluster_index</span><span class=\"field-sep\">:</span><span class=\"field-type\">usize</span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"fn-pointer-badge\">fn ptr</span> <span class=\"field-name\">spawn</span><span class=\"field-sep\">:</span><span class=\"field-type\">fn(&mut Self) -> Task<ClientEvents></span></div></div></div><div class=\"section-wrapper\"><div class=\"section-header\">Methods</div><div class=\"methods-preview\"><div class=\"methods-full\" style=\"display:none;\"><div class=\"method-item\"><span class=\"visibility private\">priv</span> <span class=\"method-name\">fn default</span><span class=\"method-params\">(title: &'static str)</span><span class=\"method-return\"> \u2192 Self</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/client/mod.rs</div></div>"
+        }
+      ]
+    },
+    {
+      "text": {
+        "name": "spawn_client"
+      },
+      "HTMLclass": "function unused",
+      "innerHTML": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">function</div><div class=\"node-title\">spawn_client</div></div><div class=\"return-type-badge\"><span class=\"label\">returns</span> iced::Result</div><div class=\"section-wrapper\"><div class=\"section-header\">Parameters</div><div class=\"params-list\"><div class=\"param-item\"><span class=\"param-name\">windows</span><span class=\"param-sep\">:</span><span class=\"param-type\">&mut Vec<Window></span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/client/mod.rs</div></div>"
+    },
+    {
+      "text": {
+        "name": "default"
+      },
+      "HTMLclass": "function unused",
+      "innerHTML": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">function</div><div class=\"node-title\">default</div></div><div class=\"return-type-badge\"><span class=\"label\">returns</span> Self</div><div class=\"section-wrapper\"><div class=\"section-header\">Parameters</div><div class=\"params-list\"><div class=\"param-item\"><span class=\"param-name\">title</span><span class=\"param-sep\">:</span><span class=\"param-type\">&'static str</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/client/mod.rs</div></div>"
+    },
+    {
+      "text": {
+        "name": "check_new_frame_cluster"
+      },
+      "HTMLclass": "function unused",
+      "innerHTML": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">function</div><div class=\"node-title\">check_new_frame_cluster</div></div><div class=\"return-type-badge\"><span class=\"label\">returns</span> Option<&FrameCluster></div><div class=\"section-wrapper\"><div class=\"section-header\">Parameters</div><div class=\"params-list\"><div class=\"param-item\"><span class=\"param-name\">frame_clusters</span><span class=\"param-sep\">:</span><span class=\"param-type\">&Vec<FrameCluster></span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/client/def_fns/view.rs</div></div>",
+      "children": [
+        {
+          "text": {
+            "name": "FrameCluster"
+          },
+          "HTMLclass": "struct ",
+          "innerHTML": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">struct</div><div class=\"node-title\">FrameCluster</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Fields</div><div class=\"fields-preview\"><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">is_visible</span><span class=\"field-sep\">:</span><span class=\"field-type\">bool</span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">frames</span><span class=\"field-sep\">:</span><span class=\"field-type\">Vec<Frame></span></div></div></div><div class=\"section-wrapper\"><div class=\"section-header\">Methods</div><div class=\"methods-preview\"><div class=\"methods-full\" style=\"display:none;\"><div class=\"method-item\"><span class=\"visibility private\">priv</span> <span class=\"method-name\">fn default</span><span class=\"method-params\">()</span><span class=\"method-return\"> \u2192 Self</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/shared/frames/mod.rs</div></div>"
+        }
+      ]
+    },
+    {
+      "text": {
+        "name": "default"
+      },
+      "HTMLclass": "function unused",
+      "innerHTML": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">function</div><div class=\"node-title\">default</div></div><div class=\"return-type-badge\"><span class=\"label\">returns</span> Self</div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/shared/frames/mod.rs</div></div>"
+    },
+    {
+      "text": {
+        "name": "Buffer"
+      },
+      "HTMLclass": "struct unused",
+      "innerHTML": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">struct</div><div class=\"node-title\">Buffer</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Fields</div><div class=\"fields-preview\"><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">content</span><span class=\"field-sep\">:</span><span class=\"field-type\">String</span></div></div></div><div class=\"section-wrapper\"><div class=\"section-header\">Methods</div><div class=\"methods-preview\"><div class=\"methods-full\" style=\"display:none;\"><div class=\"method-item\"><span class=\"visibility private\">priv</span> <span class=\"method-name\">fn default</span><span class=\"method-params\">()</span><span class=\"method-return\"> \u2192 Self</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/shared/buffers/mod.rs</div></div>"
+    },
+    {
+      "text": {
+        "name": "default"
+      },
+      "HTMLclass": "function unused",
+      "innerHTML": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">function</div><div class=\"node-title\">default</div></div><div class=\"return-type-badge\"><span class=\"label\">returns</span> Self</div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/shared/buffers/mod.rs</div></div>"
+    }
+  ]
+};
+        
+        // Initialize trees
+        const trees    = [];
+        let all_nodes  = [];
+        
+        tree_data.nodeStructure.forEach((root, index) => {
+            const container = document.createElement('div');
+            container.className = 'tree-wrapper';
+            container.id = 'tree-' + index;
+            document.getElementById('tree-container').appendChild(container);
+            
+            const config = {
+                ...tree_data.chart,
+                container: '#tree-' + index
+            };
+            
+            const tree = new Treant({
+                chart: config,
+                nodeStructure: root
+            });
+            
+            trees.push(tree);
+        });
+        
+        // Wait for DOM to be ready, then collect all nodes
+        setTimeout(() => {
+            all_nodes = document.querySelectorAll('.Treant .node');
+        }, 500);
+        
+    </script>
+</body>
+</html>

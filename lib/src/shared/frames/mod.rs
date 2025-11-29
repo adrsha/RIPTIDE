@@ -1,13 +1,15 @@
+#[derive(Debug)]
 pub enum FramePositionType {
     Fixed,
     Absolute
 }
+#[derive(Debug)]
 pub struct Coordinates {
     pub x: i32,
     pub y: i32
 }
 
-
+#[derive(Debug)]
 pub struct Frame {
     pub position_type: FramePositionType,
     pub position: Coordinates,

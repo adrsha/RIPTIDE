@@ -1,0 +1,340 @@
+* {
+    margin:     0;
+    padding:    0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background:  #000000;
+    color:       #e4e4e7;
+    padding:     20px;
+    min-height:  100vh;
+}
+
+.container {
+    max-width: 100%;
+}
+
+h1 {
+    color:          #60a5fa;
+    margin-bottom:  20px;
+    font-size:      2rem;
+    font-weight:    700;
+    text-shadow:    0 0 20px rgba(96, 165, 250, 0.3);
+    letter-spacing: -0.5px;
+}
+
+.controls {
+    margin-bottom: 20px;
+    display:       flex;
+    gap:           12px;
+}
+
+.controls button {
+    background:    linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color:         white;
+    border:        none;
+    padding:       12px 24px;
+    cursor:        pointer;
+    border-radius: 8px;
+    font-size:     14px;
+    font-weight:   600;
+    transition:    all 0.3s ease;
+    box-shadow:    0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.controls button:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    transform:  translateY(-2px);
+    box-shadow: 0 6px 12px rgba(59, 130, 246, 0.4);
+}
+
+#tree-container {
+    border:        1px solid rgba(96, 165, 250, 0.2);
+    border-radius: 12px;
+    padding:       40px;
+    overflow:      scroll;
+}
+
+.tree-wrapper {
+    margin-bottom: 60px;
+}
+
+.Treant {
+    width:  100%;
+    height: auto;
+}
+
+.Treant .node {
+    background:    linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+    border:        2px solid #334155;
+    border-radius: 12px;
+    padding:       0;
+    min-width:     250px;
+    max-width:     350px;
+    cursor:        pointer;
+    transition:    all 0.3s ease;
+    box-shadow:    0 4px 12px rgba(0, 0, 0, 0.5);
+    overflow:      hidden;
+}
+
+.Treant .node:hover {
+    transform:  translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    opacity: 0.8
+}
+
+.Treant .node.struct {
+    border-color: #10b981;
+    background:   linear-gradient(145deg, #064e3b 0%, #022c22 100%);
+}
+
+.Treant .node.function {
+    border-color: #f59e0b;
+    background:   linear-gradient(145deg, #78350f 0%, #451a03 100%);
+}
+
+.Treant .node.enum {
+    border-color: #ef4444;
+    background:   linear-gradient(145deg, #7f1d1d 0%, #450a0a 100%);
+}
+
+.Treant .node.unused {
+    filter:  grayscale(1);
+}
+
+.node-content {
+    padding: 0;
+}
+
+.node-header {
+    padding:          16px;
+    background:       rgba(0, 0, 0, 0.3);
+    border-bottom:    1px solid rgba(255, 255, 255, 0.1);
+    display:          flex;
+    align-items:      center;
+    gap:              12px;
+}
+
+.node-type-badge {
+    background:    rgba(96, 165, 250, 0.2);
+    color:         #60a5fa;
+    padding:       4px 10px;
+    border-radius: 6px;
+    font-size:     10px;
+    font-weight:   700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border:        1px solid rgba(96, 165, 250, 0.3);
+}
+
+.node.struct .node-type-badge {
+    background: rgba(16, 185, 129, 0.2);
+    color:      #10b981;
+    border:     1px solid rgba(16, 185, 129, 0.3);
+}
+
+.node.function .node-type-badge {
+    background: rgba(245, 158, 11, 0.2);
+    color:      #f59e0b;
+    border:     1px solid rgba(245, 158, 11, 0.3);
+}
+
+.node.enum .node-type-badge {
+    background: rgba(239, 68, 68, 0.2);
+    color:      #ef4444;
+    border:     1px solid rgba(239, 68, 68, 0.3);
+}
+
+.node-title {
+    font-size:   18px;
+    font-weight: 700;
+    color:       #f1f5f9;
+    flex:        1;
+}
+
+.return-type-badge {
+    background:    rgba(168, 85, 247, 0.15);
+    color:         #a855f7;
+    padding:       8px 12px;
+    border-radius: 6px;
+    font-size:     12px;
+    margin:        12px 16px;
+    display:       inline-block;
+    font-family:   'JetBrainsMono Nerd Font', monospace;
+    border:        1px solid rgba(168, 85, 247, 0.3);
+}
+
+.return-type-badge .label {
+    opacity:     0.7;
+    font-size:   10px;
+    margin-right: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.section-wrapper {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.section-wrapper:last-of-type {
+    border-bottom: none;
+}
+
+.section-header {
+    padding:        12px 16px;
+    background:     rgba(0, 0, 0, 0.2);
+    font-size:      11px;
+    font-weight:    700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color:          #94a3b8;
+}
+
+.params-list, .fields-list, .methods-list, .variants-list {
+    padding: 12px 16px;
+}
+
+.param-item, .field-item, .method-item, .variant-item {
+    padding:       8px 12px;
+    margin-bottom: 6px;
+    background:    rgba(255, 255, 255, 0.03);
+    border-radius: 6px;
+    font-family:   'JetBrainsMono Nerd Font', monospace;
+    font-size:     13px;
+    line-height:   1.6;
+    transition:    all 0.2s ease;
+    border-left:   3px solid transparent;
+}
+
+.param-item:hover, .field-item:hover, .method-item:hover, .variant-item:hover {
+    background:  rgba(255, 255, 255, 0.06);
+    border-left: 3px solid #60a5fa;
+    transform:   translateX(2px);
+}
+
+.param-item:last-child, .field-item:last-child, .method-item:last-child, .variant-item:last-child {
+    margin-bottom: 0;
+}
+
+.param-name, .field-name, .method-name, .variant-name {
+    color:       #38bdf8;
+    font-weight: 600;
+}
+
+.param-sep, .field-sep {
+    color:   #64748b;
+    margin:  0 6px;
+}
+
+.param-type, .field-type {
+    color: #a78bfa;
+}
+
+.method-params {
+    color:   #94a3b8;
+    margin-left: 4px;
+}
+
+.method-return {
+    color:       #10b981;
+    margin-left: 8px;
+}
+
+.variant-fields {
+    color:       #94a3b8;
+    margin-left: 4px;
+}
+
+.visibility {
+    background:    rgba(16, 185, 129, 0.2);
+    color:         #10b981;
+    padding:       2px 6px;
+    border-radius: 4px;
+    font-size:     10px;
+    font-weight:   700;
+    margin-right:  8px;
+    text-transform: uppercase;
+}
+
+.visibility.private {
+    background: rgba(100, 116, 139, 0.2);
+    color:      #f78baa;
+}
+
+.file-info {
+    padding:     12px 16px;
+    background:  rgba(0, 0, 0, 0.3);
+    font-size:   11px;
+    color:       #64748b;
+    font-style:  italic;
+    display:     flex;
+    align-items: center;
+    gap:         8px;
+}
+
+.file-icon {
+    font-size: 14px;
+}
+
+.Treant .collapse-switch {
+    width:         24px;
+    height:        24px;
+    border:        2px solid #60a5fa;
+    background:    #1e293b;
+    border-radius: 50%;
+    transition:    all 0.3s ease;
+}
+
+.Treant .collapse-switch:hover {
+    background: #60a5fa;
+    transform:  scale(1.1);
+    box-shadow: 0 0 12px rgba(96, 165, 250, 0.5);
+}
+
+.Treant path {
+    stroke:         #60a5fa;
+    stroke-width:   6px;
+    opacity:        0.6;
+    filter:         drop-shadow(0 0 2px rgba(0, 0, 0, 0.8));
+}
+.Treant path:hover {
+    stroke:  #ffffff;
+    filter:  drop-shadow(0 0 2px 1px rgba(255, 255, 255, 0.8));
+    opacity: 1;
+
+}
+
+.fn-pointer-badge {
+    background:     rgba(245, 158, 11, 0.2);
+    color:          #f59e0b;
+    padding:        2px 6px;
+    border-radius:  4px;
+    font-size:      9px;
+    font-weight:    700;
+    margin-right:   8px;
+    text-transform: uppercase;
+    border:         1px solid rgba(245, 158, 11, 0.3);
+}
+
+/* Scrollbar styling */
+#tree-container::-webkit-scrollbar {
+    width:  12px;
+    height: 12px;
+}
+
+#tree-container::-webkit-scrollbar-track {
+    background:    rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+}
+
+#tree-container::-webkit-scrollbar-thumb {
+    background:    rgba(96, 165, 250, 0.3);
+    border-radius: 6px;
+    transition:    all 0.3s ease;
+}
+
+#tree-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(96, 165, 250, 0.5);
+}
