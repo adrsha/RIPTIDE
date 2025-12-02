@@ -13,12 +13,15 @@ from dataclasses import dataclass, field
 from enum import Enum
 
 class NodeType(Enum):
-    FUNCTION = "function"
-    STRUCT   = "struct"
-    ENUM     = "enum"
-    TRAIT    = "trait"
-    IMPL     = "impl"
-    MODULE   = "module"
+    FUNCTION    = "function"
+    STRUCT      = "struct"
+    ENUM        = "enum"
+    TRAIT       = "trait"
+    IMPL        = "impl"
+    MODULE      = "module"
+    TYPE_ALIAS  = "type_alias"
+    CONST       = "const"
+    TRAIT_IMPL  = "trait_impl"
 
 @dataclass
 class Field:
@@ -27,6 +30,14 @@ class Field:
     is_public:      bool = True
     is_fn_pointer:  bool = False
     fn_pointer_sig: str  = ""
+
+@dataclass
+class TraitMethod:
+    name:        str
+    params:      List[Field]
+    return_type: str
+    has_default: bool = False
+
 
 @dataclass
 class Method:
@@ -56,6 +67,9 @@ class Node:
     linked_types:  Set[str]    = field(default_factory=set)
     full_path:     str         = ""
     children:      List['Node'] = field(default_factory=list)
+    trait_methods: List[TraitMethod] = field(default_factory=list)
+    impl_trait:    str         = ""  # For trait implementations
+    impl_for:      str         = ""  # For trait implementations
 
 class RustParser:
     def __init__(self, project_root: str):
@@ -90,29 +104,50 @@ class RustParser:
 
     def _extract_inner_types(self, type_name: str) -> List[str]:
         """Extract types from generics like Vec<T>, Option<Result<T, E>>"""
-        types           = []
-        generic_pattern = r'<([^<>]+(?:<[^<>]+>)*)>'
-        matches         = re.findall(generic_pattern, type_name)
+        types = []
         
-        for match in matches:
-            depth   = 0
-            current = ""
-            for char in match:
-                if char == '<':
-                    depth += 1
-                elif char == '>':
-                    depth -= 1
-                elif char == ',' and depth == 0:
+        # Find the outermost angle brackets
+        start_idx = type_name.find('<')
+        if start_idx == -1:
+            return types
+        
+        # Extract everything inside angle brackets, handling nesting
+        depth   = 0
+        current = ""
+        
+        for i in range(start_idx, len(type_name)):
+            char = type_name[i]
+            
+            if char == '<':
+                if depth > 0:
+                    current += char
+                depth += 1
+            elif char == '>':
+                depth -= 1
+                if depth > 0:
+                    current += char
+                elif depth == 0:
+                    # We've closed the outermost bracket
+                    if current.strip():
+                        types.append(current.strip())
+                    break
+            elif depth > 0:
+                if char == ',' and depth == 1:
+                    # Top-level comma separator
                     if current.strip():
                         types.append(current.strip())
                     current = ""
-                    continue
-                current += char
-            
-            if current.strip():
-                types.append(current.strip())
+                else:
+                    current += char
+        
+        # Recursively extract from nested types
+        nested_types = []
+        for t in types:
+            nested_types.extend(self._extract_inner_types(t))
+        types.extend(nested_types)
         
         return types
+
 
     def scan_project(self):
         """Scan all Rust files in the project, excluding target directory"""
@@ -152,6 +187,18 @@ class RustParser:
         
         # Parse enums
         self._parse_enums(content, str(rel_path), module_path)
+        
+        # Parse traits
+        self._parse_traits(content, str(rel_path), module_path)
+        
+        # Parse trait implementations
+        self._parse_trait_impls(content, str(rel_path), module_path)
+        
+        # Parse type aliases
+        self._parse_type_aliases(content, str(rel_path), module_path)
+        
+        # Parse constants
+        self._parse_constants(content, str(rel_path), module_path)
         
         # Parse functions
         self._parse_functions(content, str(rel_path), module_path)
@@ -323,6 +370,12 @@ class RustParser:
                     clean_type = self._clean_type_name(field.type_name)
                     if not self.is_std_type(clean_type):
                         node.linked_types.add(clean_type)
+
+                    inner_types = self._extract_inner_types(field.type_name)
+                    for inner in inner_types:
+                        clean_inner = self._clean_type_name(inner)
+                        if not self.is_std_type(clean_inner):
+                            node.linked_types.add(clean_inner)
 
             self.nodes[node_id] = node
             
@@ -565,6 +618,189 @@ class RustParser:
             
             self.nodes[node_id] = node
 
+    def _parse_trait_impls(self, content: str, file_path: str, module_path: str):
+        """Parse trait implementations (impl Trait for Type)"""
+        impl_pattern = r'impl(?:\s+<[^>]+>)?\s+([\w:]+(?:<[^>]+>)?)\s+for\s+([\w:]+)(?:<[^>]+>)?\s*\{'
+        
+        for match in re.finditer(impl_pattern, content):
+            trait_name = match.group(1).strip()
+            type_name  = match.group(2).strip()
+            
+            start = match.end()
+            depth = 1
+            end   = start
+            
+            for i in range(start, len(content)):
+                if content[i] == '{':
+                    depth += 1
+                elif content[i] == '}':
+                    depth -= 1
+                    if depth == 0:
+                        end = i
+                        break
+            
+            impl_body = content[start:end]
+            methods   = self._parse_methods(impl_body)
+            
+            # Find the target type node and add methods to it
+            target_node = self._find_node_by_type(type_name)
+            if target_node:
+                # Add trait name annotation to methods
+                for method in methods:
+                    # Mark that this method is from a trait impl
+                    method.is_public = True  # Trait methods are always public
+                target_node.methods.extend(methods)
+                
+                # Track the trait as a linked type
+                clean_trait = self._clean_type_name(trait_name)
+                if not self.is_std_type(clean_trait):
+                    target_node.linked_types.add(clean_trait)
+            else:
+                # If we can't find the target node, create a trait impl node
+                node_id = f"{module_path}::impl_{trait_name}_for_{type_name}"
+                
+                node = Node(
+                    id         = node_id,
+                    name       = f"{trait_name} for {type_name}",
+                    node_type  = NodeType.TRAIT_IMPL,
+                    file_path  = file_path,
+                    is_public  = True,
+                    methods    = methods,
+                    impl_trait = trait_name,
+                    impl_for   = type_name,
+                    full_path  = node_id
+                )
+                
+                # Link to the trait and the type
+                clean_trait = self._clean_type_name(trait_name)
+                clean_type  = self._clean_type_name(type_name)
+                
+                if not self.is_std_type(clean_trait):
+                    node.linked_types.add(clean_trait)
+                if not self.is_std_type(clean_type):
+                    node.linked_types.add(clean_type)
+                
+                # Track linked types from methods
+                for method in methods:
+                    for param in method.params:
+                        clean_param = self._clean_type_name(param.type_name)
+                        if not self.is_std_type(clean_param):
+                            node.linked_types.add(clean_param)
+                        
+                        inner_types = self._extract_inner_types(param.type_name)
+                        for inner in inner_types:
+                            clean_inner = self._clean_type_name(inner)
+                            if not self.is_std_type(clean_inner):
+                                node.linked_types.add(clean_inner)
+                    
+                    if method.return_type:
+                        clean_ret = self._clean_type_name(method.return_type)
+                        if not self.is_std_type(clean_ret):
+                            node.linked_types.add(clean_ret)
+                        
+                        inner_types = self._extract_inner_types(method.return_type)
+                        for inner in inner_types:
+                            clean_inner = self._clean_type_name(inner)
+                            if not self.is_std_type(clean_inner):
+                                node.linked_types.add(clean_inner)
+                
+                self.nodes[node_id] = node
+
+
+    def _parse_trait_methods(self, trait_body: str) -> List[TraitMethod]:
+        """Parse methods from trait definition"""
+        methods        = []
+        method_pattern = r'fn\s+(\w+)\s*(?:<[^>]+>)?\s*\(([^)]*)\)\s*(?:->\s*([^{;]+))?'
+        
+        for match in re.finditer(method_pattern, trait_body):
+            method_name = match.group(1)
+            params_str  = match.group(2)
+            return_type = match.group(3).strip() if match.group(3) else ""
+            
+            # Check if method has default implementation
+            after_sig = trait_body[match.end():].lstrip()
+            has_default = after_sig.startswith('{')
+            
+            params = self._parse_params(params_str)
+            
+            methods.append(TraitMethod(
+                name        = method_name,
+                params      = params,
+                return_type = return_type,
+                has_default = has_default
+            ))
+        
+        return methods
+
+    def _parse_traits(self, content: str, file_path: str, module_path: str):
+        """Parse trait definitions"""
+        trait_pattern = r'(?:pub\s+)?trait\s+(\w+)\s*(?:<[^>]+>)?\s*(?::\s*([^{]+))?\s*\{'
+        
+        for match in re.finditer(trait_pattern, content):
+            trait_name = match.group(1)
+            bounds     = match.group(2).strip() if match.group(2) else ""
+            is_public  = 'pub' in content[max(0, match.start()-10):match.start()]
+            
+            start = match.end()
+            depth = 1
+            end   = start
+            
+            for i in range(start, len(content)):
+                if content[i] == '{':
+                    depth += 1
+                elif content[i] == '}':
+                    depth -= 1
+                    if depth == 0:
+                        end = i
+                        break
+            
+            body     = content[start:end]
+            methods  = self._parse_trait_methods(body)
+            node_id  = f"{module_path}::{trait_name}"
+            
+            node = Node(
+                id            = node_id,
+                name          = trait_name,
+                node_type     = NodeType.TRAIT,
+                file_path     = file_path,
+                is_public     = is_public,
+                trait_methods = methods,
+                full_path     = node_id
+            )
+            
+            # Track linked types from trait bounds
+            if bounds:
+                for bound in bounds.split('+'):
+                    clean_bound = self._clean_type_name(bound.strip())
+                    if not self.is_std_type(clean_bound):
+                        node.linked_types.add(clean_bound)
+            
+            # Track linked types from methods
+            for method in methods:
+                for param in method.params:
+                    clean_type = self._clean_type_name(param.type_name)
+                    if not self.is_std_type(clean_type):
+                        node.linked_types.add(clean_type)
+                    
+                    inner_types = self._extract_inner_types(param.type_name)
+                    for inner in inner_types:
+                        clean_inner = self._clean_type_name(inner)
+                        if not self.is_std_type(clean_inner):
+                            node.linked_types.add(clean_inner)
+                
+                if method.return_type:
+                    clean_ret = self._clean_type_name(method.return_type)
+                    if not self.is_std_type(clean_ret):
+                        node.linked_types.add(clean_ret)
+                    
+                    inner_types = self._extract_inner_types(method.return_type)
+                    for inner in inner_types:
+                        clean_inner = self._clean_type_name(inner)
+                        if not self.is_std_type(clean_inner):
+                            node.linked_types.add(clean_inner)
+            
+            self.nodes[node_id] = node
+
     def _parse_enum_variants(self, body: str) -> List[EnumVariant]:
         """Parse enum variants"""
         variants        = []
@@ -597,24 +833,26 @@ class RustParser:
 
     def _parse_functions(self, content: str, file_path: str, module_path: str):
         """Parse standalone functions"""
-        fn_pattern = r'(?:pub\s+)?fn\s+(\w+)\s*\(([^)]*)\)\s*(?:->\s*([^{;]+))?'
-        
-        for match in re.finditer(fn_pattern, content):
+        # Remove all impl blocks first to avoid parsing their methods as standalone functions
+        cleaned_content = self._remove_impl_blocks(content)
+
+        fn_pattern = r'(?:pub\s+)?fn\s+(\w+)\s*(?:<[^>]+>)?\s*\(([^)]*)\)\s*(?:->\s*([^{;]+))?'
+
+        for match in re.finditer(fn_pattern, cleaned_content):
             fn_name     = match.group(1)
             params_str  = match.group(2)
             return_type = match.group(3).strip() if match.group(3) else ""
-            is_public   = 'pub' in content[max(0, match.start()-10):match.start()]
-            
-            # Skip if this is inside an impl block
-            before_text = content[:match.start()]
-            if 'impl' in before_text.split('\n')[-5:]:
-                impl_depth = before_text.count('{') - before_text.count('}')
-                if impl_depth > 0:
-                    continue
-            
+
+            # Find the corresponding position in the original content
+            original_pos = self._find_in_original(content, match.start(), match.group(0))
+            if original_pos == -1:
+                continue
+
+            is_public = 'pub' in content[max(0, original_pos-10):original_pos]
+
             params  = self._parse_params(params_str)
             node_id = f"{module_path}::{fn_name}"
-            
+
             node = Node(
                 id          = node_id,
                 name        = fn_name,
@@ -625,31 +863,134 @@ class RustParser:
                 return_type = return_type,
                 full_path   = node_id
             )
-            
+
             # Track linked types
             for param in params:
                 clean_type = self._clean_type_name(param.type_name)
                 if not self.is_std_type(clean_type):
                     node.linked_types.add(clean_type)
-                
+
                 inner_types = self._extract_inner_types(param.type_name)
                 for inner in inner_types:
                     clean_inner = self._clean_type_name(inner)
                     if not self.is_std_type(clean_inner):
                         node.linked_types.add(clean_inner)
-            
+
             if return_type:
                 clean_ret = self._clean_type_name(return_type)
                 if not self.is_std_type(clean_ret):
                     node.linked_types.add(clean_ret)
-                
+
                 inner_types = self._extract_inner_types(return_type)
                 for inner in inner_types:
                     clean_inner = self._clean_type_name(inner)
                     if not self.is_std_type(clean_inner):
                         node.linked_types.add(clean_inner)
+
+            self.nodes[node_id] = node
+
+    def _parse_constants(self, content: str, file_path: str, module_path: str):
+        """Parse constants"""
+        const_pattern = r'(?:pub\s+)?const\s+(\w+)\s*:\s*([^=]+)='
+        
+        for match in re.finditer(const_pattern, content):
+            const_name = match.group(1)
+            const_type = match.group(2).strip()
+            is_public  = 'pub' in content[max(0, match.start()-10):match.start()]
+            node_id    = f"{module_path}::{const_name}"
+            
+            node = Node(
+                id          = node_id,
+                name        = const_name,
+                node_type   = NodeType.CONST,
+                file_path   = file_path,
+                is_public   = is_public,
+                return_type = const_type,  # Store type in return_type field
+                full_path   = node_id
+            )
+            
+            # Track the const type
+            clean_type = self._clean_type_name(const_type)
+            if not self.is_std_type(clean_type):
+                node.linked_types.add(clean_type)
+            
+            inner_types = self._extract_inner_types(const_type)
+            for inner in inner_types:
+                clean_inner = self._clean_type_name(inner)
+                if not self.is_std_type(clean_inner):
+                    node.linked_types.add(clean_inner)
             
             self.nodes[node_id] = node
+
+    def _parse_type_aliases(self, content: str, file_path: str, module_path: str):
+        """Parse type aliases"""
+        type_pattern = r'(?:pub\s+)?type\s+(\w+)\s*(?:<[^>]+>)?\s*=\s*([^;]+);'
+        
+        for match in re.finditer(type_pattern, content):
+            alias_name = match.group(1)
+            target_type = match.group(2).strip()
+            is_public   = 'pub' in content[max(0, match.start()-10):match.start()]
+            node_id     = f"{module_path}::{alias_name}"
+            
+            node = Node(
+                id          = node_id,
+                name        = alias_name,
+                node_type   = NodeType.TYPE_ALIAS,
+                file_path   = file_path,
+                is_public   = is_public,
+                return_type = target_type,  # Store target type in return_type field
+                full_path   = node_id
+            )
+            
+            # Track the target type
+            clean_target = self._clean_type_name(target_type)
+            if not self.is_std_type(clean_target):
+                node.linked_types.add(clean_target)
+            
+            inner_types = self._extract_inner_types(target_type)
+            for inner in inner_types:
+                clean_inner = self._clean_type_name(inner)
+                if not self.is_std_type(clean_inner):
+                    node.linked_types.add(clean_inner)
+            
+            self.nodes[node_id] = node
+
+    def _remove_impl_blocks(self, content: str) -> str:
+        """Remove all impl blocks from content to avoid parsing their methods"""
+        impl_pattern = r'impl(?:\s+<[^>]+>)?\s+(?:\w+(?:::\w+)*\s+for\s+)?(\w+)\s*(?:<[^>]+>)?\s*\{'
+        
+        result = []
+        last_end = 0
+        
+        for match in re.finditer(impl_pattern, content):
+            # Add content before this impl block
+            result.append(content[last_end:match.start()])
+            
+            # Skip the impl block
+            start = match.end()
+            depth = 1
+            
+            for i in range(start, len(content)):
+                if content[i] == '{':
+                    depth += 1
+                elif content[i] == '}':
+                    depth -= 1
+                    if depth == 0:
+                        last_end = i + 1
+                        break
+        
+        # Add remaining content
+        result.append(content[last_end:])
+        return ''.join(result)
+    
+    def _find_in_original(self, original: str, approx_pos: int, pattern: str) -> int:
+        """Find the position of a pattern in the original content near an approximate position"""
+        # Search within a reasonable range
+        search_start = max(0, approx_pos - 100)
+        search_end = min(len(original), approx_pos + 100)
+        
+        idx = original.find(pattern, search_start, search_end)
+        return idx
 
     def _mark_usage(self):
         """Mark which nodes are used by others"""
@@ -769,7 +1110,7 @@ class RustParser:
 
             # Methods section
             if node.methods:
-                all_methods     = node.methods
+                all_methods = node.methods
                 
                 html_parts.append('<div class="section-wrapper">')
                 html_parts.append('<div class="section-header">Methods</div>')
@@ -791,6 +1132,28 @@ class RustParser:
                         f'</div>'
                     )
                 html_parts.append('</div>')  # Close full
+                html_parts.append('</div>')  # Close section-wrapper
+            
+            # Trait methods section
+            if node.trait_methods:
+                html_parts.append('<div class="section-wrapper">')
+                html_parts.append('<div class="section-header">Trait Methods</div>')
+                html_parts.append('<div class="methods-preview">')
+                
+                for method in node.trait_methods:
+                    param_list = ', '.join([f'{p.name}: {p.type_name}' for p in method.params])
+                    ret        = f' → {method.return_type}' if method.return_type else ''
+                    default    = '<span class="default-badge">default</span> ' if method.has_default else ''
+                    
+                    html_parts.append(
+                        f'<div class="method-item">'
+                        f'{default}'
+                        f'<span class="method-name">fn {method.name}</span>'
+                        f'<span class="method-params">({param_list})</span>'
+                        f'<span class="method-return">{ret}</span>'
+                        f'</div>'
+                    )
+                html_parts.append('</div>')  # Close preview
                 html_parts.append('</div>')  # Close section-wrapper
 
             if node.variants:
@@ -1022,6 +1385,27 @@ h1 {
     background:   linear-gradient(145deg, #7f1d1d 0%, #450a0a 100%);
 }
 
+.Treant .node.trait {
+    border-color: #8b5cf6;
+    background:   linear-gradient(145deg, #5b21b6 0%, #3b0764 100%);
+}
+
+.Treant .node.trait_impl {
+    border-color: #ec4899;
+    background:   linear-gradient(145deg, #831843 0%, #500724 100%);
+}
+
+.Treant .node.type_alias {
+    border-color: #06b6d4;
+    background:   linear-gradient(145deg, #155e75 0%, #083344 100%);
+}
+
+.Treant .node.const {
+    border-color: #a3e635;
+    background:   linear-gradient(145deg, #3f6212 0%, #1a2e05 100%);
+}
+
+
 .Treant .node.unused {
     filter:  grayscale(1);
 }
@@ -1067,6 +1451,30 @@ h1 {
     background: rgba(239, 68, 68, 0.2);
     color:      #ef4444;
     border:     1px solid rgba(239, 68, 68, 0.3);
+}
+
+.node.trait .node-type-badge {
+    background: rgba(139, 92, 246, 0.2);
+    color:      #8b5cf6;
+    border:     1px solid rgba(139, 92, 246, 0.3);
+}
+
+.node.trait_impl .node-type-badge {
+    background: rgba(236, 72, 153, 0.2);
+    color:      #ec4899;
+    border:     1px solid rgba(236, 72, 153, 0.3);
+}
+
+.node.type_alias .node-type-badge {
+    background: rgba(6, 182, 212, 0.2);
+    color:      #06b6d4;
+    border:     1px solid rgba(6, 182, 212, 0.3);
+}
+
+.node.const .node-type-badge {
+    background: rgba(163, 230, 53, 0.2);
+    color:      #a3e635;
+    border:     1px solid rgba(163, 230, 53, 0.3);
 }
 
 .node-title {
@@ -1238,6 +1646,18 @@ h1 {
     margin-right:   8px;
     text-transform: uppercase;
     border:         1px solid rgba(245, 158, 11, 0.3);
+}
+
+.default-badge {
+    background:     rgba(139, 92, 246, 0.2);
+    color:          #8b5cf6;
+    padding:        2px 6px;
+    border-radius:  4px;
+    font-size:      9px;
+    font-weight:    700;
+    margin-right:   8px;
+    text-transform: uppercase;
+    border:         1px solid rgba(139, 92, 246, 0.3);
 }
 
 /* Scrollbar styling */

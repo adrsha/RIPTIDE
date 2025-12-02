@@ -100,6 +100,27 @@ h1 {
     background:   linear-gradient(145deg, #7f1d1d 0%, #450a0a 100%);
 }
 
+.Treant .node.trait {
+    border-color: #8b5cf6;
+    background:   linear-gradient(145deg, #5b21b6 0%, #3b0764 100%);
+}
+
+.Treant .node.trait_impl {
+    border-color: #ec4899;
+    background:   linear-gradient(145deg, #831843 0%, #500724 100%);
+}
+
+.Treant .node.type_alias {
+    border-color: #06b6d4;
+    background:   linear-gradient(145deg, #155e75 0%, #083344 100%);
+}
+
+.Treant .node.const {
+    border-color: #a3e635;
+    background:   linear-gradient(145deg, #3f6212 0%, #1a2e05 100%);
+}
+
+
 .Treant .node.unused {
     filter:  grayscale(1);
 }
@@ -145,6 +166,30 @@ h1 {
     background: rgba(239, 68, 68, 0.2);
     color:      #ef4444;
     border:     1px solid rgba(239, 68, 68, 0.3);
+}
+
+.node.trait .node-type-badge {
+    background: rgba(139, 92, 246, 0.2);
+    color:      #8b5cf6;
+    border:     1px solid rgba(139, 92, 246, 0.3);
+}
+
+.node.trait_impl .node-type-badge {
+    background: rgba(236, 72, 153, 0.2);
+    color:      #ec4899;
+    border:     1px solid rgba(236, 72, 153, 0.3);
+}
+
+.node.type_alias .node-type-badge {
+    background: rgba(6, 182, 212, 0.2);
+    color:      #06b6d4;
+    border:     1px solid rgba(6, 182, 212, 0.3);
+}
+
+.node.const .node-type-badge {
+    background: rgba(163, 230, 53, 0.2);
+    color:      #a3e635;
+    border:     1px solid rgba(163, 230, 53, 0.3);
 }
 
 .node-title {
@@ -316,6 +361,18 @@ h1 {
     margin-right:   8px;
     text-transform: uppercase;
     border:         1px solid rgba(245, 158, 11, 0.3);
+}
+
+.default-badge {
+    background:     rgba(139, 92, 246, 0.2);
+    color:          #8b5cf6;
+    padding:        2px 6px;
+    border-radius:  4px;
+    font-size:      9px;
+    font-weight:    700;
+    margin-right:   8px;
+    text-transform: uppercase;
+    border:         1px solid rgba(139, 92, 246, 0.3);
 }
 
 /* Scrollbar styling */

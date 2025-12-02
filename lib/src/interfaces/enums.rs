@@ -1,4 +1,4 @@
-use iced::window;
+
 
 use crate::shared::frames::Frame;
 
@@ -15,8 +15,8 @@ pub enum ClientEvents {
     LeftMouseBtnDown,
     RightMouseBtnDown,
     Ignored,
-    WindowCloseEvent(window::Id),
-    WindowOpenEvent(window::Id),
+    WindowCloseEvent(u32),
+    WindowOpenEvent(u32),
     FrameCloseEvent(usize, usize),
     FrameOpenEvent(Frame, usize)
 }
