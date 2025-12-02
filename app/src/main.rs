@@ -1,15 +1,12 @@
-use riptide_lib::{Libs, run_riptide };
-// use crate::shared::frames::FrameStorage;
-// use crate::shared::buffers::BufferStorage;
+use riptide_lib::{Libs, run_riptide, shared::RTShared };
 
 fn main() {
-    let libs = Libs::default();
-    // {
-    //     let mut writable_shared = shared::SHARED.write().unwrap();
-    //     writable_shared.frames = FrameStorage::default();
-    //     writable_shared.buffers = BufferStorage::default();
-    // }
-    // let client = libs.client;
-    // client.subscribe = new_func;
-    run_riptide(libs);
+    let shared_vars: RTShared = RTShared::default();
+    let libs: Libs = Libs::new(&shared_vars);
+    match run_riptide(libs) {
+        Ok(_) => {}
+        Err(err) => {
+            print!("Error occured in run_riptide: {}", err);
+        }
+    }
 }

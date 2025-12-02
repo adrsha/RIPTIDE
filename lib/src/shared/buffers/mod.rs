@@ -1,11 +1,15 @@
+use std::path::PathBuf;
+
 pub struct Buffer {
     pub content : String,
+    pub file_path : PathBuf,
 }
 
 impl Buffer{
     pub fn default() -> Self {
         Self {
-            content: String::from("")
+            content: String::from(""),
+            file_path: PathBuf::new(),
         }
     }
 }

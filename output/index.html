@@ -62,19 +62,41 @@
         "id": "src::lib::Libs",
         "label": "Libs",
         "type": "struct",
-        "is_used": false,
-        "html": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">struct</div><div class=\"node-title\">Libs</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Fields</div><div class=\"fields-preview\"><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">client</span><span class=\"field-sep\">:</span><span class=\"field-type\">client::Client</span></div></div></div><div class=\"section-wrapper\"><div class=\"section-header\">Methods</div><div class=\"methods-preview\"><div class=\"method-item\"><span class=\"visibility\">pub</span> <span class=\"method-name\">fn default</span><span class=\"method-params\">()</span><span class=\"method-return\"> \u2192 Self</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/lib.rs</div></div>",
+        "is_used": true,
+        "html": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">struct</div><div class=\"node-title\">Libs</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Fields</div><div class=\"fields-preview\"><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">client</span><span class=\"field-sep\">:</span><span class=\"field-type\">client::RTClient<'l></span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/lib.rs</div></div>",
         "file_path": "src/lib.rs"
       },
-      "classes": "struct unused"
+      "classes": "struct "
     },
     {
       "data": {
-        "id": "src::shared::mod::Shared",
-        "label": "Shared",
+        "id": "src::lib::new",
+        "label": "new",
+        "type": "function",
+        "is_used": true,
+        "html": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">function</div><div class=\"node-title\">new</div></div><div class=\"return-type-badge\"><span class=\"label\">returns</span> Self</div><div class=\"section-wrapper\"><div class=\"section-header\">Parameters</div><div class=\"params-list\"><div class=\"param-item\"><span class=\"param-name\">shared</span><span class=\"param-sep\">:</span><span class=\"param-type\">&'l shared::RTShared</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/lib.rs</div></div>",
+        "file_path": "src/lib.rs"
+      },
+      "classes": "function "
+    },
+    {
+      "data": {
+        "id": "src::lib::run_riptide",
+        "label": "run_riptide",
+        "type": "function",
+        "is_used": false,
+        "html": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">function</div><div class=\"node-title\">run_riptide</div></div><div class=\"return-type-badge\"><span class=\"label\">returns</span> eframe::Result</div><div class=\"section-wrapper\"><div class=\"section-header\">Parameters</div><div class=\"params-list\"><div class=\"param-item\"><span class=\"param-name\">libs</span><span class=\"param-sep\">:</span><span class=\"param-type\">Libs</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/lib.rs</div></div>",
+        "file_path": "src/lib.rs"
+      },
+      "classes": "function unused"
+    },
+    {
+      "data": {
+        "id": "src::shared::mod::RTShared",
+        "label": "RTShared",
         "type": "struct",
         "is_used": true,
-        "html": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">struct</div><div class=\"node-title\">Shared</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Fields</div><div class=\"fields-preview\"><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">frames</span><span class=\"field-sep\">:</span><span class=\"field-type\">frames::FrameStorage</span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">buffers</span><span class=\"field-sep\">:</span><span class=\"field-type\">buffers::BufferStorage</span></div></div></div><div class=\"section-wrapper\"><div class=\"section-header\">Methods</div><div class=\"methods-preview\"><div class=\"method-item\"><span class=\"visibility\">pub</span> <span class=\"method-name\">fn default</span><span class=\"method-params\">()</span><span class=\"method-return\"> \u2192 Self</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/shared/mod.rs</div></div>",
+        "html": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">struct</div><div class=\"node-title\">RTShared</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Fields</div><div class=\"fields-preview\"><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">frames</span><span class=\"field-sep\">:</span><span class=\"field-type\">frames::FrameStorage</span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">buffers</span><span class=\"field-sep\">:</span><span class=\"field-type\">buffers::BufferStorage</span></div></div></div><div class=\"section-wrapper\"><div class=\"section-header\">Methods</div><div class=\"methods-preview\"><div class=\"method-item\"><span class=\"visibility\">pub</span> <span class=\"method-name\">fn default</span><span class=\"method-params\">()</span><span class=\"method-return\"> \u2192 Self</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/shared/mod.rs</div></div>",
         "file_path": "src/shared/mod.rs"
       },
       "classes": "struct "
@@ -103,22 +125,33 @@
     },
     {
       "data": {
-        "id": "src::client::windows::Window",
-        "label": "Window",
+        "id": "src::client::windows::RTWindow",
+        "label": "RTWindow",
         "type": "struct",
         "is_used": true,
-        "html": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">struct</div><div class=\"node-title\">Window</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Fields</div><div class=\"fields-preview\"><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">id</span><span class=\"field-sep\">:</span><span class=\"field-type\">u32</span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">title</span><span class=\"field-sep\">:</span><span class=\"field-type\">&'static str</span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">frame_cluster_index</span><span class=\"field-sep\">:</span><span class=\"field-type\">usize</span></div></div></div><div class=\"section-wrapper\"><div class=\"section-header\">Methods</div><div class=\"methods-preview\"><div class=\"method-item\"><span class=\"visibility private\">priv</span> <span class=\"method-name\">fn default</span><span class=\"method-params\">(title: &'static str)</span><span class=\"method-return\"> \u2192 Self</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/client/windows.rs</div></div>",
+        "html": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">struct</div><div class=\"node-title\">RTWindow</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Fields</div><div class=\"fields-preview\"><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">id</span><span class=\"field-sep\">:</span><span class=\"field-type\">egui::Id</span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">title</span><span class=\"field-sep\">:</span><span class=\"field-type\">String</span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">frame_cluster_index</span><span class=\"field-sep\">:</span><span class=\"field-type\">usize</span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">open</span><span class=\"field-sep\">:</span><span class=\"field-type\">bool</span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">is_open</span><span class=\"field-sep\">:</span><span class=\"field-type\">bool</span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"fn-pointer-badge\">fn ptr</span> <span class=\"field-name\">show</span><span class=\"field-sep\">:</span><span class=\"field-type\">fn(&mut Self</span></div></div></div><div class=\"section-wrapper\"><div class=\"section-header\">Methods</div><div class=\"methods-preview\"><div class=\"method-item\"><span class=\"visibility private\">priv</span> <span class=\"method-name\">fn default</span><span class=\"method-params\">(title: String, frame_cluster_index: usize)</span><span class=\"method-return\"> \u2192 Self</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/client/windows.rs</div></div>",
         "file_path": "src/client/windows.rs"
       },
       "classes": "struct "
     },
     {
       "data": {
-        "id": "src::client::mod::Client",
-        "label": "Client",
+        "id": "src::client::windows::show_window",
+        "label": "show_window",
+        "type": "function",
+        "is_used": false,
+        "html": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">function</div><div class=\"node-title\">show_window</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Parameters</div><div class=\"params-list\"><div class=\"param-item\"><span class=\"param-name\">window</span><span class=\"param-sep\">:</span><span class=\"param-type\">&mut RTWindow</span></div><div class=\"param-item\"><span class=\"param-name\">ctx</span><span class=\"param-sep\">:</span><span class=\"param-type\">&Context</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/client/windows.rs</div></div>",
+        "file_path": "src/client/windows.rs"
+      },
+      "classes": "function unused"
+    },
+    {
+      "data": {
+        "id": "src::client::mod::RTClient",
+        "label": "RTClient",
         "type": "struct",
         "is_used": true,
-        "html": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">struct</div><div class=\"node-title\">Client</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Fields</div><div class=\"fields-preview\"><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">windows</span><span class=\"field-sep\">:</span><span class=\"field-type\">Vec<Window></span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">shared</span><span class=\"field-sep\">:</span><span class=\"field-type\">Shared</span></div></div></div><div class=\"section-wrapper\"><div class=\"section-header\">Methods</div><div class=\"methods-preview\"><div class=\"method-item\"><span class=\"visibility private\">priv</span> <span class=\"method-name\">fn default</span><span class=\"method-params\">()</span><span class=\"method-return\"> \u2192 Self</span></div><div class=\"method-item\"><span class=\"visibility\">pub</span> <span class=\"method-name\">fn update</span><span class=\"method-params\">(ctx: &egui::Context, _frame: &mut eframe::Frame)</span><span class=\"method-return\"></span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/client/mod.rs</div></div>",
+        "html": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">struct</div><div class=\"node-title\">RTClient</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Fields</div><div class=\"fields-preview\"><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">windows</span><span class=\"field-sep\">:</span><span class=\"field-type\">Vec<RTWindow></span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">shared</span><span class=\"field-sep\">:</span><span class=\"field-type\">&'c RTShared</span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">next_frame_cluster_idx</span><span class=\"field-sep\">:</span><span class=\"field-type\">usize</span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">is_alive</span><span class=\"field-sep\">:</span><span class=\"field-type\">bool</span></div></div></div><div class=\"section-wrapper\"><div class=\"section-header\">Methods</div><div class=\"methods-preview\"><div class=\"method-item\"><span class=\"visibility private\">priv</span> <span class=\"method-name\">fn new</span><span class=\"method-params\">(shared: &'c shared::RTShared)</span><span class=\"method-return\"> \u2192 Self</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/client/mod.rs</div></div>",
         "file_path": "src/client/mod.rs"
       },
       "classes": "struct "
@@ -184,7 +217,7 @@
         "label": "Buffer",
         "type": "struct",
         "is_used": true,
-        "html": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">struct</div><div class=\"node-title\">Buffer</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Fields</div><div class=\"fields-preview\"><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">content</span><span class=\"field-sep\">:</span><span class=\"field-type\">String</span></div></div></div><div class=\"section-wrapper\"><div class=\"section-header\">Methods</div><div class=\"methods-preview\"><div class=\"method-item\"><span class=\"visibility private\">priv</span> <span class=\"method-name\">fn default</span><span class=\"method-params\">()</span><span class=\"method-return\"> \u2192 Self</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/shared/buffers/mod.rs</div></div>",
+        "html": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">struct</div><div class=\"node-title\">Buffer</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Fields</div><div class=\"fields-preview\"><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">content</span><span class=\"field-sep\">:</span><span class=\"field-type\">String</span></div><div class=\"field-item\"><span class=\"visibility private\">priv</span> <span class=\"field-name\">file_path</span><span class=\"field-sep\">:</span><span class=\"field-type\">PathBuf</span></div></div></div><div class=\"section-wrapper\"><div class=\"section-header\">Methods</div><div class=\"methods-preview\"><div class=\"method-item\"><span class=\"visibility private\">priv</span> <span class=\"method-name\">fn default</span><span class=\"method-params\">()</span><span class=\"method-return\"> \u2192 Self</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/shared/buffers/mod.rs</div></div>",
         "file_path": "src/shared/buffers/mod.rs"
       },
       "classes": "struct "
@@ -202,58 +235,36 @@
     },
     {
       "data": {
-        "id": "src::lib::Libs::fn::default",
-        "label": "Libs::default",
+        "id": "src::shared::mod::RTShared::fn::default",
+        "label": "RTShared::default",
         "type": "function",
         "is_used": true,
-        "html": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">function</div><div class=\"node-title\">Libs::default</div></div><div class=\"return-type-badge\"><span class=\"label\">returns</span> Self</div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/lib.rs</div></div>",
-        "file_path": "src/lib.rs"
-      },
-      "classes": "function "
-    },
-    {
-      "data": {
-        "id": "src::shared::mod::Shared::fn::default",
-        "label": "Shared::default",
-        "type": "function",
-        "is_used": true,
-        "html": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">function</div><div class=\"node-title\">Shared::default</div></div><div class=\"return-type-badge\"><span class=\"label\">returns</span> Self</div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/shared/mod.rs</div></div>",
+        "html": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">function</div><div class=\"node-title\">RTShared::default</div></div><div class=\"return-type-badge\"><span class=\"label\">returns</span> Self</div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/shared/mod.rs</div></div>",
         "file_path": "src/shared/mod.rs"
       },
       "classes": "function "
     },
     {
       "data": {
-        "id": "src::client::windows::Window::fn::default",
-        "label": "Window::default",
+        "id": "src::client::windows::RTWindow::fn::default",
+        "label": "RTWindow::default",
         "type": "function",
         "is_used": false,
-        "html": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">function</div><div class=\"node-title\">Window::default</div></div><div class=\"return-type-badge\"><span class=\"label\">returns</span> Self</div><div class=\"section-wrapper\"><div class=\"section-header\">Parameters</div><div class=\"params-list\"><div class=\"param-item\"><span class=\"param-name\">title</span><span class=\"param-sep\">:</span><span class=\"param-type\">&'static str</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/client/windows.rs</div></div>",
+        "html": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">function</div><div class=\"node-title\">RTWindow::default</div></div><div class=\"return-type-badge\"><span class=\"label\">returns</span> Self</div><div class=\"section-wrapper\"><div class=\"section-header\">Parameters</div><div class=\"params-list\"><div class=\"param-item\"><span class=\"param-name\">title</span><span class=\"param-sep\">:</span><span class=\"param-type\">String</span></div><div class=\"param-item\"><span class=\"param-name\">frame_cluster_index</span><span class=\"param-sep\">:</span><span class=\"param-type\">usize</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/client/windows.rs</div></div>",
         "file_path": "src/client/windows.rs"
       },
       "classes": "function unused"
     },
     {
       "data": {
-        "id": "src::client::mod::Client::fn::default",
-        "label": "Client::default",
+        "id": "src::client::mod::RTClient::fn::new",
+        "label": "RTClient::new",
         "type": "function",
         "is_used": false,
-        "html": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">function</div><div class=\"node-title\">Client::default</div></div><div class=\"return-type-badge\"><span class=\"label\">returns</span> Self</div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/client/mod.rs</div></div>",
+        "html": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">function</div><div class=\"node-title\">RTClient::new</div></div><div class=\"return-type-badge\"><span class=\"label\">returns</span> Self</div><div class=\"section-wrapper\"><div class=\"section-header\">Parameters</div><div class=\"params-list\"><div class=\"param-item\"><span class=\"param-name\">shared</span><span class=\"param-sep\">:</span><span class=\"param-type\">&'c shared::RTShared</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/client/mod.rs</div></div>",
         "file_path": "src/client/mod.rs"
       },
       "classes": "function unused"
-    },
-    {
-      "data": {
-        "id": "src::client::mod::Client::fn::update",
-        "label": "Client::update",
-        "type": "function",
-        "is_used": true,
-        "html": "<div class=\"node-content\"><div class=\"node-header\"><div class=\"node-type-badge\">function</div><div class=\"node-title\">Client::update</div></div><div class=\"section-wrapper\"><div class=\"section-header\">Parameters</div><div class=\"params-list\"><div class=\"param-item\"><span class=\"param-name\">ctx</span><span class=\"param-sep\">:</span><span class=\"param-type\">&egui::Context</span></div><div class=\"param-item\"><span class=\"param-name\">_frame</span><span class=\"param-sep\">:</span><span class=\"param-type\">&mut eframe::Frame</span></div></div></div><div class=\"file-info\"><span class=\"file-icon\">\ud83d\udcc1</span> src/client/mod.rs</div></div>",
-        "file_path": "src/client/mod.rs"
-      },
-      "classes": "function "
     },
     {
       "data": {
@@ -312,27 +323,27 @@
     },
     {
       "data": {
-        "id": "src::lib::Libs-uses->src::client::mod::Client",
+        "id": "src::lib::Libs-uses->src::client::mod::RTClient",
         "source": "src::lib::Libs",
-        "target": "src::client::mod::Client",
+        "target": "src::client::mod::RTClient",
         "edgeType": "uses"
       },
       "classes": "edge-uses"
     },
     {
       "data": {
-        "id": "src::shared::mod::Shared-uses->src::shared::buffers::mod::BufferStorage",
-        "source": "src::shared::mod::Shared",
-        "target": "src::shared::buffers::mod::BufferStorage",
-        "edgeType": "uses"
-      },
-      "classes": "edge-uses"
-    },
-    {
-      "data": {
-        "id": "src::shared::mod::Shared-uses->src::shared::frames::mod::FrameStorage",
-        "source": "src::shared::mod::Shared",
+        "id": "src::shared::mod::RTShared-uses->src::shared::frames::mod::FrameStorage",
+        "source": "src::shared::mod::RTShared",
         "target": "src::shared::frames::mod::FrameStorage",
+        "edgeType": "uses"
+      },
+      "classes": "edge-uses"
+    },
+    {
+      "data": {
+        "id": "src::shared::mod::RTShared-uses->src::shared::buffers::mod::BufferStorage",
+        "source": "src::shared::mod::RTShared",
+        "target": "src::shared::buffers::mod::BufferStorage",
         "edgeType": "uses"
       },
       "classes": "edge-uses"
@@ -348,27 +359,18 @@
     },
     {
       "data": {
-        "id": "src::client::mod::Client-uses->src::client::windows::Window",
-        "source": "src::client::mod::Client",
-        "target": "src::client::windows::Window",
+        "id": "src::client::mod::RTClient-uses->src::shared::mod::RTShared",
+        "source": "src::client::mod::RTClient",
+        "target": "src::shared::mod::RTShared",
         "edgeType": "uses"
       },
       "classes": "edge-uses"
     },
     {
       "data": {
-        "id": "src::client::mod::Client-uses->src::shared::frames::mod::Frame",
-        "source": "src::client::mod::Client",
-        "target": "src::shared::frames::mod::Frame",
-        "edgeType": "uses"
-      },
-      "classes": "edge-uses"
-    },
-    {
-      "data": {
-        "id": "src::client::mod::Client-uses->src::shared::mod::Shared",
-        "source": "src::client::mod::Client",
-        "target": "src::shared::mod::Shared",
+        "id": "src::client::mod::RTClient-uses->src::client::windows::RTWindow",
+        "source": "src::client::mod::RTClient",
+        "target": "src::client::windows::RTWindow",
         "edgeType": "uses"
       },
       "classes": "edge-uses"
@@ -420,9 +422,9 @@
     },
     {
       "data": {
-        "id": "src::lib::Libs-has_method->src::lib::Libs::fn::default",
-        "source": "src::lib::Libs",
-        "target": "src::lib::Libs::fn::default",
+        "id": "src::shared::mod::RTShared-has_method->src::shared::mod::RTShared::fn::default",
+        "source": "src::shared::mod::RTShared",
+        "target": "src::shared::mod::RTShared::fn::default",
         "edgeType": "has_method",
         "label": "method"
       },
@@ -430,9 +432,9 @@
     },
     {
       "data": {
-        "id": "src::shared::mod::Shared-has_method->src::shared::mod::Shared::fn::default",
-        "source": "src::shared::mod::Shared",
-        "target": "src::shared::mod::Shared::fn::default",
+        "id": "src::client::windows::RTWindow-has_method->src::client::windows::RTWindow::fn::default",
+        "source": "src::client::windows::RTWindow",
+        "target": "src::client::windows::RTWindow::fn::default",
         "edgeType": "has_method",
         "label": "method"
       },
@@ -440,29 +442,9 @@
     },
     {
       "data": {
-        "id": "src::client::windows::Window-has_method->src::client::windows::Window::fn::default",
-        "source": "src::client::windows::Window",
-        "target": "src::client::windows::Window::fn::default",
-        "edgeType": "has_method",
-        "label": "method"
-      },
-      "classes": "edge-has-method"
-    },
-    {
-      "data": {
-        "id": "src::client::mod::Client-has_method->src::client::mod::Client::fn::default",
-        "source": "src::client::mod::Client",
-        "target": "src::client::mod::Client::fn::default",
-        "edgeType": "has_method",
-        "label": "method"
-      },
-      "classes": "edge-has-method"
-    },
-    {
-      "data": {
-        "id": "src::client::mod::Client-has_method->src::client::mod::Client::fn::update",
-        "source": "src::client::mod::Client",
-        "target": "src::client::mod::Client::fn::update",
+        "id": "src::client::mod::RTClient-has_method->src::client::mod::RTClient::fn::new",
+        "source": "src::client::mod::RTClient",
+        "target": "src::client::mod::RTClient::fn::new",
         "edgeType": "has_method",
         "label": "method"
       },
@@ -520,9 +502,36 @@
     },
     {
       "data": {
-        "id": "src::client::mod::Client::fn::update-uses->src::shared::frames::mod::Frame",
-        "source": "src::client::mod::Client::fn::update",
-        "target": "src::shared::frames::mod::Frame",
+        "id": "src::lib::new-uses->src::shared::mod::RTShared",
+        "source": "src::lib::new",
+        "target": "src::shared::mod::RTShared",
+        "edgeType": "fn_uses_type"
+      },
+      "classes": "edge-fn-uses-type"
+    },
+    {
+      "data": {
+        "id": "src::lib::run_riptide-uses->src::lib::Libs",
+        "source": "src::lib::run_riptide",
+        "target": "src::lib::Libs",
+        "edgeType": "fn_uses_type"
+      },
+      "classes": "edge-fn-uses-type"
+    },
+    {
+      "data": {
+        "id": "src::client::windows::show_window-uses->src::client::windows::RTWindow",
+        "source": "src::client::windows::show_window",
+        "target": "src::client::windows::RTWindow",
+        "edgeType": "fn_uses_type"
+      },
+      "classes": "edge-fn-uses-type"
+    },
+    {
+      "data": {
+        "id": "src::client::mod::RTClient::fn::new-uses->src::shared::mod::RTShared",
+        "source": "src::client::mod::RTClient::fn::new",
+        "target": "src::shared::mod::RTShared",
         "edgeType": "fn_uses_type"
       },
       "classes": "edge-fn-uses-type"
