@@ -1,15 +1,18 @@
-#[derive(Debug)]
+use rkyv::{Archive, Serialize, Deserialize};
+
+#[derive(Archive, Serialize, Deserialize, Debug)]
 pub enum FramePositionType {
     Fixed,
     Absolute
 }
-#[derive(Debug)]
+
+#[derive(Archive, Serialize, Deserialize, Debug)]
 pub struct Coordinates {
     pub x: i32,
     pub y: i32
 }
 
-#[derive(Debug)]
+#[derive(Archive, Serialize, Deserialize, Debug)]
 pub struct Frame {
     pub position_type: FramePositionType,
     pub position: Coordinates,
@@ -27,6 +30,7 @@ impl Frame {
 }
 
 
+#[derive(Archive, Serialize, Deserialize)]
 pub struct FrameCluster {
     pub is_visible: bool,
     pub frames : Vec<Frame>
@@ -41,7 +45,7 @@ impl FrameCluster {
     }
 }
 
-
+#[derive(Archive, Serialize, Deserialize)]
 pub struct FrameStorage {
     pub frame_clusters : Vec<FrameCluster>
 }

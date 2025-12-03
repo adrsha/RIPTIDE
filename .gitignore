@@ -20,3 +20,4 @@ result/
 # If you use ctags
 tags
 
+/output

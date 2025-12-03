@@ -6,3 +6,4 @@ edition = "2024"
 [dependencies]
 eframe = "0.33.2"
 memmap2 = "0.9.7"
+rkyv = "0.8.12"
