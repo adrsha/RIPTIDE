@@ -5,16 +5,19 @@ pub mod interfaces {
     pub mod enums;
 }
 
+use std::sync::{Arc, RwLock};
 use eframe::egui::{self, X11WindowType};
 
 pub struct Libs<'l> {
     pub client: client::RTClient<'l>,
+    pub server : server::RTServer
 }
 
 impl<'l> Libs<'l> {
-    pub fn new(shared: &'l shared::RTShared) -> Self {
+    pub fn new(shared: Arc<RwLock<shared::RTShared>>) -> Self {
         Self {
-            client: client::RTClient::new(shared)
+            client: client::RTClient::new(shared),
+            server : server::RTServer::new(shared)
         }
     }
 }
@@ -45,5 +48,3 @@ pub fn run_riptide(libs : Libs) -> eframe::Result {
         Box::new(|_cc| Ok(Box::new(libs.client)))
     )
 }
-
-
