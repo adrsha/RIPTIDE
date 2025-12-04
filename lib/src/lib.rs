@@ -8,16 +8,16 @@ pub mod interfaces {
 use std::sync::{Arc, RwLock};
 use eframe::egui::{self, X11WindowType};
 
-pub struct Libs<'l> {
-    pub client: client::RTClient<'l>,
+pub struct Libs {
+    pub client: client::RTClient,
     pub server : server::RTServer
 }
 
-impl<'l> Libs<'l> {
+impl Libs {
     pub fn new(shared: Arc<RwLock<shared::RTShared>>) -> Self {
         Self {
-            client: client::RTClient::new(shared),
-            server : server::RTServer::new(shared)
+            client: client::RTClient::new(shared.clone()),
+            server : server::RTServer::new(shared.clone())
         }
     }
 }
