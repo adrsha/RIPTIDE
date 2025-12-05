@@ -24,12 +24,20 @@
         inherit system;
       };
 
-      buildInputs = with pkgs; [
-        vulkan-loader
-        wayland
-        wayland-protocols
-        libxkbcommon
-      ];
+buildInputs = with pkgs; [
+  vulkan-loader
+  wayland
+  wayland-protocols
+  libxkbcommon
+
+  # --- OpenGL / Mesa stack (required for glutin/eframe-opengl) ---
+  mesa
+  mesa.drivers
+  libGL
+  libGLU
+  libglvnd
+  xorg.libXext
+];
       my-crate = crane.lib.${system}.buildPackage {
         src = ./.;
         inherit buildInputs;
@@ -57,6 +65,5 @@
         LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath buildInputs;
         # Extra inputs can be added here
       };
-      
     });
 }

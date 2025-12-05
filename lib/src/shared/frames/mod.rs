@@ -1,18 +1,18 @@
-use rkyv::{Archive, Serialize, Deserialize};
+use bitcode::{Decode, Encode};
 
-#[derive(Archive, Serialize, Deserialize, Debug)]
+#[derive(Encode, Decode, Debug)]
 pub enum FramePositionType {
     Fixed,
     Absolute
 }
 
-#[derive(Archive, Serialize, Deserialize, Debug)]
+#[derive(Encode, Decode, Debug)]
 pub struct Coordinates {
     pub x: i32,
     pub y: i32
 }
 
-#[derive(Archive, Serialize, Deserialize, Debug)]
+#[derive(Encode, Decode, Debug)]
 pub struct Frame {
     pub position_type: FramePositionType,
     pub position: Coordinates,
@@ -30,7 +30,7 @@ impl Frame {
 }
 
 
-#[derive(Archive, Serialize, Deserialize)]
+#[derive(Encode, Decode)]
 pub struct FrameCluster {
     pub is_visible: bool,
     pub frames : Vec<Frame>
@@ -45,7 +45,7 @@ impl FrameCluster {
     }
 }
 
-#[derive(Archive, Serialize, Deserialize)]
+#[derive(Encode, Decode)]
 pub struct FrameStorage {
     pub frame_clusters : Vec<FrameCluster>
 }

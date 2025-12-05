@@ -4,8 +4,8 @@ use std::io::Result;
 
 
 pub struct Writer {
-    pub write  : fn(&[u8], &Path) -> Result<()>,
-    pub append : fn(&[u8], &Path) -> Result<()>
+    pub write  : fn(&[u8], &Path, bool) -> Result<()>,
+    pub append : fn(&[u8], &Path, bool) -> Result<()>
 }
 
 impl Writer {

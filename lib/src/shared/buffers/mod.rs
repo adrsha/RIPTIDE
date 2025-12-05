@@ -1,7 +1,6 @@
-use std::path::PathBuf;
-use rkyv::{Archive, Serialize, Deserialize};
+use bitcode::{Decode, Encode};
 
-#[derive(Archive, Serialize, Deserialize)]
+#[derive(Encode, Decode)]
 pub struct Buffer {
     pub content : String,
     pub file_path : String,
@@ -16,7 +15,7 @@ impl Buffer{
     }
 }
 
-#[derive(Archive, Serialize, Deserialize)]
+#[derive(Encode, Decode)]
 pub struct BufferStorage {
     pub buffers : Vec<Buffer>,
 }
