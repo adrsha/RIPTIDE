@@ -5,4 +5,3 @@ edition = "2024"
 
 [dependencies]
 riptide_lib = { path = "../lib" }
-ropey = "1.6.1"

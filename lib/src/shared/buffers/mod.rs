@@ -1,4 +1,5 @@
 use bitcode::{Decode, Encode};
+use ropey::Rope;
 
 #[derive(Encode, Decode)]
 pub struct Buffer {
