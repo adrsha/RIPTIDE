@@ -11,7 +11,11 @@ use windows::RTWindow;
 
 use eframe::egui::{self, ViewportId, X11WindowType};
 use crate::{
+<<<<<<< HEAD
     interfaces::enums::RiptideEvents, shared::{self, RTShared}
+=======
+    interfaces::enums::{ RiptideEvents, BufferActions}, shared::{self, RTShared}
+>>>>>>> 7ce1477 ([Init] For multithreading)
 };
 use tokio::sync::broadcast;
 use std::sync::{Arc, RwLock};
@@ -30,6 +34,7 @@ pub struct RTClient {
     pub run_ui              : fn(RTClient) -> eframe::Result,
     pub events : events::RTEvents,
 
+    bus : broadcast::Sender<RiptideEvents>,
     is_alive: bool,
 }
 
@@ -53,8 +58,13 @@ impl RTClient {
                 .with_visible(true)
                 .with_inner_size([320.0, 240.0]),
             next_frame_cluster_idx : 0,
+<<<<<<< HEAD
             side_windows : Arc::new( RwLock::new( vec![])),
+=======
+            side_windows : Arc::new( RwLock::new( vec![]) ),
+>>>>>>> 7ce1477 ([Init] For multithreading)
             shared,
+            bus,
 
             load_side_windows   : window_mgmt::load_side_windows,
             create_main_window  : window_mgmt::create_main_window,
@@ -77,6 +87,15 @@ impl eframe::App for RTClient {
             (self.load_side_windows)(self);
             self.is_alive = true;
         }
+
+        let mut rx = self.bus.subscribe();
+        while let Ok(msg) = rx.try_recv() {
+            match msg {
+                _ => {}
+            }
+        }
+
+        self.bus.send(RiptideEvents::WindowOpenEvent { window_id: 0 });
         (self.create_main_window) (self, ctx);
         (self.create_side_windows)(self, ctx);
     }

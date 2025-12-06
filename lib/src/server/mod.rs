@@ -12,10 +12,10 @@ pub struct RTServer{
 use crate::{
     interfaces::enums::RiptideEvents,
     server::{
-        read_libs::Reader, 
-        session::Session, 
+        read_libs::Reader,
+        session::Session,
         write_libs::Writer
-    }, 
+    },
     shared::RTShared
 };
 

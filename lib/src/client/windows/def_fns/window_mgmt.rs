@@ -46,9 +46,9 @@ pub fn create_side_windows(client: &mut RTClient, ctx: &egui::Context) {
 
                     ui.vertical(|ui| {
                         for frame_data in &frame_cluster.frames {
-                            let frame = Frame::new() 
-                                .fill(Color32::from_rgb(30, 30, 30)) 
-                                .stroke(egui::Stroke::new(1.0, Color32::BLACK))
+                            let frame = Frame::new()
+                                .fill(Color32::from_rgb(30, 30, 30))
+                                .stroke(egui::Stroke::NONE)
                                 .corner_radius(CornerRadius::same(6))
                                 .inner_margin(egui::Margin::same(8));
 
