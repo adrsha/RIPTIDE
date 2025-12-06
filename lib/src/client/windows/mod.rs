@@ -1,3 +1,6 @@
+pub mod def_fns {
+    pub mod window_mgmt;
+}
 use eframe::egui;
 
 #[derive(Clone)]

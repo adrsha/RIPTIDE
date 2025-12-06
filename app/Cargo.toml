@@ -5,3 +5,4 @@ edition = "2024"
 
 [dependencies]
 riptide_lib = { path = "../lib" }
+tokio = "1.48.0"

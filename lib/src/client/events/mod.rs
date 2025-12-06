@@ -1,6 +1,5 @@
 use crate::client::{RTClient, RTWindow};
 
-
 pub struct RTEvents {
     pub on_client_open  : fn(&mut RTClient) -> (),
     pub on_client_close : fn(&mut RTClient) -> (),
